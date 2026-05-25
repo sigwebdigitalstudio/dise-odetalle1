@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Detalle de Amor | Rodolfo & Sheyla ❤️</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-romantic: #ff4d6d;
+        --primary-dark: #c9184a;
+        --glass-romantic: rgba(255, 255, 255, 0.12);
+        --glass-border-romantic: rgba(255, 255, 255, 0.25);
+        --error-romantic: #ff3333;
+        --success-romantic: #de5b4a;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Montserrat", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* FONDO CON IMAGEN Y OVERLAY */
+      .bg-overlay {
+        position: fixed;
+        inset: 0;
+        background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9HTFXI2QrWEYyA5ueV9NZE0QjLBZt9pl_9g&s")
+          no-repeat center center/cover;
+        filter: brightness(0.35);
+        z-index: -2;
+      }
+
+      .bg-vignette {
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle, transparent 10%, #000 100%);
+        z-index: -1;
+      }
+
+      /* ANIMACIÓN DE CORAZONES FLOTANTES */
+      .heart-particle {
+        position: absolute;
+        color: var(--primary-romantic);
+        font-size: 16px;
+        pointer-events: none;
+        z-index: 1;
+        animation: float 4s linear infinite;
+        opacity: 0;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(105vh) scale(0) rotate(0deg);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-15vh) scale(1.6) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .login-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Tarjeta de Cristal Romántica */
+      .login-card {
+        background: var(--glass-romantic);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid var(--glass-border-romantic);
+        padding: 40px 25px;
+        border-radius: 40px;
+        width: 100%;
+        max-width: 360px;
+        text-align: center;
+        box-shadow: 0 25px 50px rgba(197, 24, 67, 0.35);
+        animation: cardEnter 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        position: relative;
+      }
+
+      /* ICONO CON ANIMACIÓN DE LATIDO */
+      .avatar {
+        width: 95px;
+        height: 95px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        border: 3px solid var(--primary-romantic);
+        box-shadow: 0 0 25px rgba(255, 77, 109, 0.6);
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.3);
+        animation: pulseIcon 2s infinite ease-in-out;
+      }
+
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      @keyframes pulseIcon {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+        }
+        50% {
+          transform: scale(1.06);
+          box-shadow: 0 0 30px rgba(255, 77, 109, 0.8);
+        }
+      }
+
+      h2 {
+        font-family: "Playfair Display", serif;
+        color: #fff;
+        margin: 0 0 8px;
+        font-size: 1.65rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      p {
+        color: rgba(208, 75, 75, 0.85);
+        font-size: 0.88rem;
+        margin: 0 0 25px;
+        line-height: 1.5;
+      }
+
+      /* CONTENEDOR DE CONTRASEÑA EN FORMA DE CORAZONES */
+      .code-display {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+        margin-bottom: 30px;
+      }
+
+      .dot {
+        font-size: 1.6rem;
+        color: rgba(255, 255, 255, 0.25);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform: scale(1);
+        display: inline-block;
+      }
+
+      .dot.active {
+        color: var(--primary-romantic);
+        text-shadow: 0 0 15px var(--primary-romantic);
+        transform: scale(1.35);
+      }
+
+      /* TECLADO NUMÉRICO */
+      .keypad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        width: 100%;
+      }
+
+      button {
+        aspect-ratio: 1 / 0.72;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border-radius: 20px;
+        font-size: 1.35rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      @media (hover: hover) {
+        button:hover {
+          background: rgba(255, 255, 255, 0.18);
+          border-color: var(--primary-romantic);
+        }
+      }
+
+      button:active {
+        background: var(--primary-romantic);
+        border-color: var(--primary-romantic);
+        transform: scale(0.9);
+        box-shadow: 0 0 20px var(--primary-romantic);
+      }
+
+      .btn-clear {
+        color: #ffccd5 !important;
+        font-size: 0.78rem !important;
+        letter-spacing: 1px;
+      }
+      .btn-ok {
+        color: var(--success-romantic) !important;
+        font-size: 0.82rem !important;
+        letter-spacing: 1px;
+      }
+
+      /* MODAL FLOTANTE DE ÉXITO */
+      .modal-exito {
+        position: absolute;
+        inset: 0;
+
+        background: url("https://images.unsplash.com/photo-1514770643069-54183731a981?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YW1vciUyMG9zY3Vyb3xlbnwwfHwwfHx8MA%3D%3D")
+          no-repeat center center/cover;
+
+        border-radius: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+      }
+
+      .modal-exito.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .sticker-success {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        margin-bottom: 20px;
+        animation: jumpSticker 0.6s infinite alternate ease-in-out;
+      }
+
+      @keyframes jumpSticker {
+        from {
+          transform: translateY(0) scale(1);
+        }
+        to {
+          transform: translateY(-10px) scale(1.05);
+        }
+      }
+
+      .msg-success {
+        font-family: "Dancing Script", cursive;
+        color: #fff;
+        font-size: 1.8rem;
+        margin: 0;
+        text-align: center;
+        line-height: 1.3;
+      }
+
+      /* ANIMACIONES ADICIONALES */
+      @keyframes cardEnter {
+        from {
+          opacity: 0;
+          transform: scale(0.92) translateY(25px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .shake {
+        animation: shake 0.4s ease-in-out;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-8px);
+        }
+        75% {
+          transform: translateX(8px);
+        }
+      }
+
+      @media (max-height: 720px) {
+        .login-card {
+          padding: 25px 20px;
+        }
+        h2 {
+          font-size: 1.4rem;
+        }
+        .avatar {
+          width: 80px;
+          height: 80px;
+          margin-bottom: 15px;
+        }
+        p {
+          margin-bottom: 15px;
+          font-size: 0.8rem;
+        }
+        .code-display {
+          margin-bottom: 20px;
+        }
+        button {
+          border-radius: 15px;
+          font-size: 1.2rem;
+        }
+        .sticker-success {
+          width: 100px;
+          height: 100px;
+        }
+        .msg-success {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-overlay"></div>
+    <div class="bg-vignette"></div>
+
+    <div class="login-container">
+      <div class="login-card" id="card">
+        <!-- Vista emergente de Éxito con Mensaje y Sticker -->
+        <div class="modal-exito" id="modalExito">
+          <!-- Puedes cambiar este GIF/Sticker por el de tu preferencia -->
+          <img
+            src="https://i.pinimg.com/236x/e7/23/af/e723af1bfefea9e20344c0c6339b3450.jpg"
+            alt="Sticker Amor"
+            class="sticker-success"
+          />
+          <p class="msg-success">
+            ¡Perfecto 😍!<br />Prepárate para ver nuestra historia... ❤️
+          </p>
+        </div>
+
+        <div class="avatar">
+          <img src="./media/ima1.jpeg" alt="Icono" />
+        </div>
+        <h2>Un Lugar para Nosotros Dos</h2>
+        <p>
+          ingresa nuetra clave especial <br />
+          ❤️😍
+        </p>
+
+        <!-- Puntos cambiados a caracteres de Corazón para diseño de amor -->
+        <div class="code-display">
+          <div class="dot">❤</div>
+          <div class="dot">❤</div>
+          <div class="dot">❤</div>
+          <div class="dot">❤</div>
+        </div>
+
+        <div class="keypad">
+          <button onclick="press(1)">1</button>
+          <button onclick="press(2)">2</button>
+          <button onclick="press(3)">3</button>
+          <button onclick="press(4)">4</button>
+          <button onclick="press(5)">5</button>
+          <button onclick="press(6)">6</button>
+          <button onclick="press(7)">7</button>
+          <button onclick="press(8)">8</button>
+          <button onclick="press(9)">9</button>
+          <button class="btn-clear" onclick="clearCode()">BORRAR</button>
+          <button onclick="press(0)">0</button>
+          <button class="btn-ok" onclick="checkCode()">ENTRAR</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const SECRET_CODE = "1234";
+      let inputCode = "";
+      const dots = document.querySelectorAll(".dot");
+      const card = document.getElementById("card");
+      const modalExito = document.getElementById("modalExito");
+
+      // Crear corazones flotantes continuos
+      function createHearts() {
+        const container = document.body;
+        setInterval(() => {
+          const heart = document.createElement("div");
+          heart.classList.add("heart-particle");
+          heart.innerHTML = "❤";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+          container.appendChild(heart);
+          setTimeout(() => heart.remove(), 4500);
+        }, 500);
+      }
+      createHearts();
+      entrada1.html;
+
+      function press(num) {
+        if (inputCode.length < 4) {
+          inputCode += num;
+          updateUI();
+          if (navigator.vibrate) navigator.vibrate(40);
+          if (inputCode.length === 4) {
+            setTimeout(checkCode, 350);
+          }
+        }
+      }
+
+      function updateUI() {
+        dots.forEach((dot, index) => {
+          if (index < inputCode.length) {
+            dot.classList.add("active");
+          } else {
+            dot.classList.remove("active");
+          }
+        });
+      }
+
+      function clearCode() {
+        inputCode = "";
+        updateUI();
+      }
+
+      function checkCode() {
+        if (inputCode === SECRET_CODE) {
+          // Cambiar bordes de tarjeta a éxito temporal
+          card.style.borderColor = "var(--success-romantic)";
+          card.style.boxShadow = "0 0 50px rgba(208, 75, 75, 0.85)";
+
+          // Desplegar el modal con sticker y mensaje interno
+          setTimeout(() => {
+            modalExito.classList.add("show");
+
+            // Efecto fadeout general antes de redirigir
+            setTimeout(() => {
+              document.body.style.opacity = "0";
+              document.body.style.transition = "1s";
+              setTimeout(() => {
+                window.location.href = "entrada_principal.html";
+              }, 1000);
+            }, 2300); // 2.5 segundos para que aprecie el mensaje y sticker animado
+          }, 200);
+        } else {
+          // Efecto de error intacto
+          card.classList.add("shake");
+          dots.forEach((dot) => {
+            dot.style.color = "var(--error-romantic)";
+            dot.style.textShadow = "0 0 15px var(--error-romantic)";
+          });
+          if (navigator.vibrate) navigator.vibrate([80, 50, 80]);
+          setTimeout(() => {
+            card.classList.remove("shake");
+            inputCode = "";
+            updateUI();
+            dots.forEach((dot) => {
+              dot.style.color = "";
+              dot.style.textShadow = "";
+            });
+          }, 600);
+        }
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key >= 0 && e.key <= 9) press(e.key);
+        if (e.key === "Backspace") clearCode();
+        if (e.key === "Enter" && inputCode.length === 2) checkCode();
+      });
+    </script>
+  </body>
+</html>

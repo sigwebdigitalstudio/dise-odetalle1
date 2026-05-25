@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Para Mi Persona Favorita ❤️</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@200;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ff2d55;
+        --gold: #d4af37;
+        --dark: #0f0c29;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0000006d;
+        font-family: "Montserrat", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Fondo */
+
+      .main-bg {
+        position: fixed;
+        inset: 0;
+        background:
+          linear-gradient(rgba(121, 25, 8, 0.432), rgba(12, 4, 15, 0.6)),
+          url("https://torange.biz/photo/37/HD/hearts-heart-backgrounds-lights-dark-background-37845.jpg");
+
+        background-size: cover;
+        background-position: center;
+        z-index: -1;
+        animation: bgZoom 12s ease-in-out infinite alternate;
+      }
+
+      @keyframes bgZoom {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.08);
+        }
+      }
+
+      /* CONTENEDOR */
+
+      .container {
+        text-align: center;
+        z-index: 10;
+        width: 90%;
+      }
+
+      /* NOMBRES */
+
+      .names {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(3rem, 10vw, 5rem);
+        color: #fff;
+
+        text-shadow:
+          0 0 20px rgba(255, 45, 85, 0.8),
+          0 0 40px rgba(255, 255, 255, 0.3);
+
+        margin-bottom: 10px;
+
+        animation: fadeInDown 1.5s ease-out;
+      }
+
+      .names span {
+        color: var(--primary);
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+      }
+
+      /* SUBTITULO */
+
+      .subtitle1 {
+        color: #ffccd8;
+        font-size: clamp(1rem, 4vw, 1.3rem);
+        font-weight: 200;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+      }
+
+      /* INSTRUCCIÓN */
+
+      .instruction {
+        color: rgba(255, 255, 255, 0.8);
+        letter-spacing: 3px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        animation: fadeIn 2s ease-in;
+      }
+
+      /* CORAZÓN */
+
+      .heart-trigger {
+        font-size: 80px;
+        cursor: pointer;
+        display: inline-block;
+        animation: pulse 1.2s infinite;
+        filter: drop-shadow(0 0 15px var(--primary));
+        transition: transform 0.3s;
+        user-select: none;
+      }
+
+      .heart-trigger:hover {
+        transform: scale(1.2);
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* BOTÓN */
+
+      .btn-surprise {
+        margin-top: 40px;
+        padding: 15px 40px;
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: #fff;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        opacity: 0;
+        transform: translateY(20px);
+
+        transition: all 0.5s ease;
+
+        box-shadow: 0 0 15px rgba(255, 45, 85, 0.3);
+      }
+
+      .btn-surprise.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .btn-surprise:hover {
+        background: var(--primary);
+        box-shadow: 0 0 30px var(--primary);
+      }
+
+      /* FRASES */
+
+      .falling-text {
+        position: fixed;
+        color: #fff;
+        font-family: "Dancing Script", cursive;
+        font-size: 1.5rem;
+        pointer-events: none;
+        white-space: nowrap;
+        z-index: 5;
+
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      /* CANVAS */
+
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 100;
+      }
+
+      /* ANIMACIONES */
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 768px) {
+        .heart-trigger {
+          font-size: 70px;
+        }
+
+        .btn-surprise {
+          padding: 13px 30px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- FONDO -->
+    <div class="main-bg"></div>
+
+    <!-- CANVAS -->
+    <canvas id="canvas"></canvas>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" autoplay loop>
+      <source
+        src="./media/Fonseca - Que Suerte Tenerte (Letra).mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <!-- CONTENIDO -->
+    <div class="container">
+      <div class="names">Mateo <span>&</span> Andrea</div>
+
+      <h1 class="subtitle1">Nuestro amor será eterno</h1>
+
+      <div class="instruction">Toca el corazón</div>
+
+      <div class="heart-trigger" id="heartBtn">❤️</div>
+
+      <br />
+
+      <button
+        class="btn-surprise"
+        id="surpriseBtn"
+        onclick="location.href = 'menu.html'"
+      >
+        Abrir Sorpresa
+      </button>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const heartBtn = document.getElementById("heartBtn");
+      const music = document.getElementById("bgMusic");
+      const surpriseBtn = document.getElementById("surpriseBtn");
+
+      let particles = [];
+
+      const phrases = [
+        "Eres mi mundo",
+        "❤️",
+        "Te amo demasiado",
+        "Mi lugar favorito es contigo",
+        "🎵",
+        "Gracias por existir",
+        "Siempre juntos",
+        "❤️",
+        "Mateo & Andrea❤️",
+        "Mi felicidad tiene tu nombre",
+        "Tú y yo por siempre",
+        "🎵",
+        "Eres perfecta",
+        "Mi corazón es tuyo",
+        "Mateo & Andrea❤️",
+      ];
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      /* =========================
+MÚSICA AUTOMÁTICA
+========================= */
+
+      window.addEventListener("load", () => {
+        music.volume = 0.7;
+
+        const autoPlay = music.play();
+
+        if (autoPlay !== undefined) {
+          autoPlay.catch(() => {
+            console.log("Autoplay bloqueado");
+          });
+        }
+      });
+
+      /* =========================
+PARTÍCULAS
+========================= */
+
+      class Particle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+
+          this.size = Math.random() * 15 + 5;
+
+          this.speedX = Math.random() * 10 - 5;
+          this.speedY = Math.random() * 10 - 5;
+
+          this.color = `hsl(${Math.random() * 30 + 340},100%,60%)`;
+
+          this.opacity = 1;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          this.opacity -= 0.02;
+        }
+
+        draw() {
+          ctx.globalAlpha = this.opacity;
+
+          ctx.fillStyle = this.color;
+
+          ctx.font = `${this.size}px serif`;
+
+          ctx.fillText("❤️", this.x, this.y);
+        }
+      }
+
+      /* CREAR EXPLOSIÓN */
+
+      function createExplosion(x, y) {
+        for (let i = 0; i < 40; i++) {
+          particles.push(new Particle(x, y));
+        }
+      }
+
+      /* FRASES CAYENDO */
+
+      function createFallingPhrase() {
+        const phrase = document.createElement("div");
+
+        phrase.classList.add("falling-text");
+
+        phrase.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+
+        phrase.style.left = Math.random() * 80 + 10 + "vw";
+
+        phrase.style.top = "-50px";
+
+        const duration = Math.random() * 3 + 4;
+
+        phrase.style.transition = `transform ${duration}s linear,
+   opacity ${duration}s`;
+
+        document.body.appendChild(phrase);
+
+        setTimeout(() => {
+          phrase.style.transform = `translateY(${window.innerHeight + 100}px)
+    rotate(${Math.random() * 20 - 10}deg)`;
+        }, 100);
+
+        setTimeout(() => {
+          phrase.remove();
+        }, duration * 1000);
+      }
+
+      /* ANIMACIÓN */
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p, index) => {
+          p.update();
+          p.draw();
+
+          if (p.opacity <= 0) {
+            particles.splice(index, 1);
+          }
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      /* CLICK CORAZÓN */
+
+      heartBtn.addEventListener("click", () => {
+        /* ACTIVAR MÚSICA */
+
+        music.volume = 0.7;
+
+        const playPromise = music.play();
+
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            console.log("Esperando interacción");
+          });
+        }
+
+        /* EXPLOSIÓN */
+
+        const rect = heartBtn.getBoundingClientRect();
+
+        createExplosion(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+        /* FRASES */
+
+        setInterval(createFallingPhrase, 800);
+
+        /* VIBRACIÓN */
+
+        if (navigator.vibrate) {
+          navigator.vibrate([100]);
+        }
+
+        /* MOSTRAR BOTÓN EN 5 SEGUNDOS */
+
+        setTimeout(() => {
+          surpriseBtn.classList.add("show");
+        }, 6500);
+      });
+
+      /* RESPONSIVE */
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      /* INICIAR */
+
+      animate();
+    </script>
+  </body>
+</html>

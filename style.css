@@ -1,0 +1,1082 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+:root {
+  --rosa-fuerte: #ff4d6d;
+  --rosa-suave: #ff85a1;
+  --morado: #7c4dff;
+  --blanco: #fbf8f8;
+}
+body {
+  margin: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background-image:
+    linear-gradient(270deg, #d36c6cfe, #e48282a8, #cd6f12ce, #ffffff),
+    url("https://img.freepik.com/foto-gratis/corazones-rosas-suaves-luces-cadena-calidas-sobre-fondo-rosa_191095-99842.jpg?semt=ais_hybrid&w=740&q=80"); /* Pon aquí la ruta de tu imagen */
+
+  /* 2. El truco: 'multiply' o 'overlay' mezcla el color con la foto */
+  background-blend-mode: multiply;
+
+  /* 3. Ajustes de visualización */
+  background-size:
+    600% 600%,
+    cover;
+  background-position: center;
+  background-attachment: fixed; /* Mantiene el fondo quieto al hacer scroll */
+}
+
+/* --- SECCIÓN DETALLE --- */
+.seccion-detalle {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: white;
+  box-sizing: border-box;
+}
+
+.contenedor-detalle {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.titulo-hola {
+  font-family: "Pacifico", cursive;
+  font-size: clamp(2.3rem, 8vw, 4.2rem);
+  color: #ffead0;
+  text-shadow: 0 0 20px rgba(255, 234, 208, 0.5);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.subtitulo-detalle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+/* --- ESCENARIO DE FOTOS --- */
+.escenario-fotos {
+  position: relative;
+  height: 240px; /* Un poquito más de espacio vertical para que no corte sombras */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+/* Estilo base para los marcos de las fotos */
+.marco-foto {
+  position: absolute;
+  width: 130px;
+  height: 170px;
+  border: 6px solid white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  background: #ccc;
+  /* Aseguramos que el punto de anclaje para las transformaciones sea el centro exacto */
+  top: 50%;
+  margin-top: -85px; /* Mitad del alto para centrado vertical perfecto */
+  transition:
+    transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.6s ease,
+    left 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+    right 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Corrección de ajuste de imágenes */
+.marco-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* Mantiene el rostro o centro de la foto enfocado siempre */
+  display: block;
+}
+
+/* Posiciones Iniciales utilizando transform-origin estable */
+.foto-izq {
+  left: 10%;
+  transform: rotate(-8deg);
+}
+
+.foto-der {
+  right: 10%;
+  transform: rotate(8deg);
+}
+
+/* Foto Central (Oculta al inicio) */
+.foto-centro {
+  width: 280px;
+  height: 290px;
+  margin-top: -105px; /* Ajuste para su propia mitad de altura */
+  left: 50%;
+  margin-left: -80px; /* Centrado horizontal exacto */
+  z-index: 5;
+  opacity: 0;
+  transform: scale(0.5) rotate(0deg);
+  box-shadow: 0 15px 35px rgba(255, 42, 75, 0.4);
+  border-color: #ffead0;
+}
+
+/* --- ESTADOS DE ANIMACIÓN (Activados por JS) --- */
+/* Optimizamos la traslación para que vayan al centro exacto antes de desvanecerse */
+.escenario-fotos.unido .foto-izq {
+  transform: translateX(100%) rotate(0deg) scale(0.8);
+  left: 40%;
+  opacity: 0;
+}
+
+.escenario-fotos.unido .foto-der {
+  transform: translateX(-100%) rotate(0deg) scale(0.8);
+  right: 40%;
+  opacity: 0;
+}
+
+.escenario-fotos.unido .foto-centro {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  animation: flotarFoto 4s infinite ease-in-out 0.8s;
+}
+
+@keyframes flotarFoto {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1) translateY(-8px);
+  }
+}
+
+/* --- BOTÓN DE ACCIÓN --- */
+.btn-unir {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #a30b2e;
+  background: #ffffff;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition:
+    transform 0.2s,
+    background-color 0.3s,
+    box-shadow 0.3s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-unir:hover {
+  background-color: #ffead0;
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+}
+
+.btn-unir:active {
+  transform: scale(0.95);
+}
+
+.btn-unir.ocultar {
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none;
+  transition:
+    opacity 0.4s,
+    transform 0.4s;
+}
+
+/* --- EFECTO DE CHISPAS --- */
+.chispa {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10;
+  animation: explotarChispa 0.9s ease-out forwards;
+}
+
+@keyframes explotarChispa {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--mx)), calc(-50% + var(--my)))
+      scale(0);
+    opacity: 0;
+  }
+}
+
+/* --- MENSAJE REVELADO --- */
+.contenedor-mensaje-oculto {
+  min-height: 80px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mensaje-bonito {
+  background-color: #ff4d5c;
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(1.5rem, 5vw, 2.3rem);
+  color: #ffffff;
+  text-shadow:
+    0 0 15px rgba(255, 255, 255, 0.8),
+    0 0 25px #ff2a4b;
+  margin: 0;
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+  transition:
+    opacity 0.8s ease 0.3s,
+    transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s;
+}
+
+.mensaje-bonito.mostrar {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Ajustes Responsivos Precisos para Pantallas de Celular */
+@media (max-width: 480px) {
+  .escenario-fotos {
+    height: 200px;
+  }
+  .marco-foto {
+    width: 100px;
+    height: 140px;
+    margin-top: -70px;
+  }
+  .foto-centro {
+    width: 125px;
+    height: 170px;
+    margin-top: -85px;
+    margin-left: -62.5px;
+  }
+  .foto-izq {
+    left: 5%;
+  }
+  .foto-der {
+    right: 5%;
+  }
+}
+
+/*___________________
+
+
+
+
+____________________*/
+
+/* --- SECCIÓN 1: INICIO --- */
+
+/* --- SECCIÓN 2: FOTOS --- */
+.seccion-foto {
+  min-height: 100vh;
+  /*background: linear-gradient(
+          135deg,
+          #6a11cb 0%,
+          #2575fc 100%
+        );*/ /* Fondo azul/morado profundo */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: -10px 20px;
+  color: white;
+}
+
+.titulo-foto {
+  font-family: "Pacifico", cursive;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.contenedor-imagen {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  border: 10px solid white;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: flotarImagen 5s infinite ease-in-out;
+}
+
+.contenedor-imagen img {
+  width: 100%;
+  display: block;
+  transition: transform 0.5s;
+}
+
+.contenedor-imagen:hover img {
+  transform: scale(1.05);
+}
+
+/* Corazón Latido */
+.corazon-click {
+  font-size: 80px;
+  color: #dccccf;
+  cursor: pointer;
+  margin-top: 30px;
+  filter: drop-shadow(0 0 10px rgb(255, 255, 255));
+  animation: latido 1.2s infinite;
+  user-select: none;
+  transition: transform 0.2s;
+}
+
+.corazon-click:active {
+  transform: scale(0.8);
+}
+
+/* --- SECCIÓN 3: MÚSICA --- */
+.seccion-musica {
+  text-align: center;
+  min-height: 90vh;
+  /*background: linear-gradient(135deg, #640c5a 0%, #d51ac299 100%);*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  color: rgb(255, 255, 255);
+  overflow: hidden;
+  position: relative;
+}
+
+.titulo-musica {
+  font-family: "Pacifico", cursive;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin-bottom: 40px;
+  color: var(--blanco);
+}
+
+.reproductor-container {
+  background: rgba(49, 7, 7, 0.659);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 50px;
+  border: 1px solid rgb(255, 250, 250);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.disco-wrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 30px;
+}
+
+.disco {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 8px solid #333;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s ease;
+}
+
+/* Animación de rotación */
+.disco.girando {
+  animation: girarDisco 4s linear infinite;
+}
+
+.disco img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.centro-disco {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: #1a1a2e;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+}
+
+.controles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.btn-play {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  background: var(--rosa-fuerte);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+}
+
+.btn-play:hover {
+  transform: scale(1.1);
+}
+
+.btn-control {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.frase-musica {
+  font-style: italic;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+/* Efecto de corazones flotantes */
+.corazon-flotante {
+  position: absolute;
+  color: var(--rosa-suave);
+  pointer-events: none;
+  z-index: 10;
+  animation: flotarHaciaArriba 2s forwards;
+}
+
+@keyframes girarDisco {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flotarHaciaArriba {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Keyframes */
+@keyframes flotarImagen {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(1deg);
+  }
+}
+
+@keyframes latido {
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.2);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* --- SECCIÓN 4: DETALLE --- 
+      =======================================
+
+
+
+
+
+      =======================================*/
+
+.seccion-detalle {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: white;
+}
+
+.titulo-hola {
+  font-family: "Pacifico", cursive;
+  font-size: clamp(2.8rem, 10vw, 5rem);
+  color: #ffead0;
+  text-shadow: 0 0 20px rgba(255, 234, 208, 0.5);
+  animation: palpitarSuave 3s infinite ease-in-out;
+  margin-bottom: 10px;
+}
+
+.subtitulo-detalle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+/* Animación Palpitar */
+@keyframes palpitarSuave {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Contador Premium Mejorado */
+.contador-premium {
+  position: relative;
+  background: rgba(158, 10, 48, 0.6);
+  padding: 40px;
+  border-radius: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.capa-brillo {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.grid-tiempo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.caja-tiempo {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  padding: 15px 5px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.caja-tiempo span {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.caja-tiempo label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #ffead0;
+  margin-top: 5px;
+  display: block;
+}
+
+.texto-amandonos {
+  font-size: 1.5rem;
+  font-weight: 600;
+  background: white;
+  color: #a30b2e;
+  display: inline-block;
+  padding: 8px 30px;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .grid-tiempo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .titulo-hola {
+    font-size: 2.5rem;
+  }
+}
+
+/* --- SECCIÓN 5: GALERÍA ---
+      
+
+
+
+
+      
+      ============================*/
+.seccion-galeria {
+  min-height: 80vh;
+  padding: 80px 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.titulo-galeria {
+  font-family: "Dancing Script", cursive;
+  font-size: 3.5rem;
+  color: var(--blanco);
+}
+
+.subtitulo-galeria {
+  color: #d4dfe1;
+  margin-bottom: 50px;
+}
+
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+  position: relative;
+}
+
+.slider-track {
+  display: flex;
+  width: calc(250px * 14); /* Ajustar según número de fotos */
+  animation: scrollInfinito 30s linear infinite;
+}
+
+.slider-track:hover {
+  animation-play-state: paused; /* Se detiene al pasar el mouse */
+}
+
+.card-foto {
+  width: 230px;
+  margin: 0 15px;
+  background: white;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.card-foto:hover {
+  transform: translateY(-10px) rotate(2deg);
+}
+
+.card-foto img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-foto span {
+  display: block;
+  margin-top: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  color: #444;
+  font-weight: 600;
+}
+
+/* Animación del Scroll */
+@keyframes scrollInfinito {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 5));
+  }
+}
+
+/* Overlay Zoom */
+.overlay-galeria {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none; /* Oculto por defecto */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+
+.overlay-galeria img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 15px;
+  border: 5px solid white;
+  animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* --- SECCIÓN 6: fotos y frase ---*/
+
+#fotos_frase {
+  /* Capa 1: Los puntitos blancos */
+  /* Capa 2: El gradiente rojizo con transparencia (usando rgba) */
+  /* Capa 3: Tu imagen de fondo */
+  background:
+    radial-gradient(rgba(255, 255, 255, 0.007) 1px, transparent 1px),
+    radial-gradient(
+      circle at center,
+      rgba(171, 29, 44, 0.866),
+      rgba(74, 10, 10, 0.453)
+    ),
+    url("https://static.vecteezy.com/system/resources/thumbnails/005/489/500/small/happy-valentines-day-with-paper-hearts-and-copy-space-on-red-background-vector.jpg"); /* Pon aquí la ruta de tu foto */
+
+  background-size:
+    30px 30px,
+    auto,
+    cover; /* Tamaño para cada capa respectivamente */
+  background-position: center;
+  background-attachment: fixed; /* Esto hace que la imagen se quede quieta al hacer scroll, se ve muy pro */
+
+  min-height: 100vh;
+  padding: 40px 20px;
+  text-align: center;
+  font-family: "Arial Rounded MT Bold", "Helvetica", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.titulo-principal {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+  text-shadow: 2px 2px 4px rgba(229, 7, 7, 0.5);
+
+  font-family: "Pacifico", cursive;
+}
+
+.subtitulo {
+  color: #ffffff;
+  font-size: 1rem;
+  margin-bottom: 40px;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.contenedor-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  perspective: 1000px;
+}
+
+/* Estilo de la Tarjeta */
+.card-flip {
+  width: 260px;
+  height: 320px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.card-flip.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: #fffdf5; /* Color crema tipo papel */
+  padding: 15px;
+  box-shadow: 0 10px 25px rgba(236, 240, 239, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 2px;
+}
+
+/* Cinta adhesiva arriba */
+.cinta {
+  width: 80px;
+  height: 25px;
+  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: -10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-front img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+.texto-foto {
+  font-style: italic;
+  margin-top: 15px;
+  color: #7b0a0a;
+  font-size: 1.1rem;
+}
+
+/* Parte de atrás con el mensaje largo */
+.card-back {
+  transform: rotateY(180deg);
+  justify-content: center;
+  padding: 20px;
+  background-image: url("https://static.vecteezy.com/system/resources/thumbnails/005/489/500/small/happy-valentines-day-with-paper-hearts-and-copy-space-on-red-background-vector.jpg");
+
+  /* 2. Aseguramos que la imagen cubra todo el cuadro sin deformarse */
+  background-size: cover;
+
+  /* 3. Centramos la imagen */
+  background-position: center;
+}
+
+.frase-oculta {
+  color: #ebeaea;
+  font-size: 1rem;
+  line-height: 1.5;
+
+  font-style: italic;
+}
+
+/* Estilo de los corazones flotantes */
+.heart {
+  position: fixed;
+  bottom: -10vh;
+  font-size: 20px;
+  color: #ff4d6d;
+  user-select: none;
+  pointer-events: none;
+  animation: moveUp 4s linear infinite;
+  z-index: 10;
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* --- ESTILOS SECCIÓN CARTA (PERSONALIZADOS) ---
+   ==================================== */
+.seccion-sobre-final {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* El cuadro blanco redondeado de la imagen */
+.card-blanca {
+  background: white;
+  padding: 60px 40px;
+  border-radius: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 10;
+  width: 350px;
+}
+
+/* Diseño del Sobre */
+.sobre-contenedor {
+  position: relative;
+  width: 250px;
+  height: 160px;
+  background: #ff4d6d;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sobre-solapa {
+  position: absolute;
+  top: 0;
+  border-left: 125px solid transparent;
+  border-right: 125px solid transparent;
+  border-top: 90px solid #c9184a;
+  z-index: 2;
+}
+
+.sobre-cuerpo {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: #ff4d6d;
+}
+
+.sobre-corazon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: red;
+  font-size: 40px;
+  z-index: 3;
+  filter: drop-shadow(0 0 5px rgba(255, 251, 251, 0.2));
+  animation: latidoSobre 1.5s infinite;
+}
+
+@keyframes latidoSobre {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+.texto-abrir {
+  color: #ff4d6d;
+  margin-top: 25px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Pantalla de Mensaje Flotante */
+.pantalla-mensaje {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Ajustes en la tarjeta del texto para soportar el scroll de manera interna */
+.carta-texto {
+  background-image: url("https://i.pinimg.com/236x/fa/07/33/fa07333cafbe854dc8ccba498e592c1f.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 40px 30px;
+  border-radius: 20px;
+  max-width: 90%;
+  width: 450px; /* Un toque más ancho para mejorar la lectura de textos largos */
+  max-height: 85vh; /* Evita que la carta se salga de la pantalla en móviles */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.carta-texto h2 {
+  font-family: "Dancing Script", cursive;
+  color: #e21919;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  flex-shrink: 0; /* Evita que el título se encoja */
+}
+
+/* Aquí manejamos el comportamiento del scroll del contenedor del texto */
+.carta-texto p {
+  font-family: "Courier New", Courier, monospace;
+  color: #000000;
+  line-height: 1.6;
+  font-size: 1rem;
+  overflow-y: auto; /* Activa el scroll vertical solo cuando el texto se desborda */
+  padding-right: 10px;
+  text-align: left; /* Alineado a la izquierda para que una carta larga se lea mejor */
+  white-space: pre-line; /* Clave: Respeta los saltos de línea de tu JavaScript */
+
+  /* Personalización básica de la barra de scroll (opcional y limpia) */
+  scrollbar-width: thin;
+  scrollbar-color: #fdfcfc rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la barra de scroll en navegadores basados en Webkit (Chrome, Safari, Edge) */
+.carta-texto p::-webkit-scrollbar {
+  width: 6px;
+}
+.carta-texto p::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.carta-texto p::-webkit-scrollbar-thumb {
+  background-color: #ff4d6d;
+  border-radius: 10px;
+}
+
+.btn-continuar {
+  margin-top: 20px;
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none; /* Aparece después del texto vía JS */
+  flex-shrink: 0; /* Evita que el botón se deforme */
+  align-self: center;
+}

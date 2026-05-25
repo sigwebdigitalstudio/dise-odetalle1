@@ -1,0 +1,204 @@
+<style>
+  /* --- Contenedor General Exterior (Transparente) --- */
+  .love-mini-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: transparent;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* --- El Cuadro Blanco Estilizado --- */
+  .love-mini-box {
+    background: #ffffff; /* Solo el cuadro es blanco */
+    border-radius: 20px;
+    padding: 22px 28px;
+    width: 100%;
+    max-width: 320px; /* Un poco más grande y legible */
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(253, 79, 132, 0.08); /* Sombra muy suave */
+    border: 1px solid rgba(253, 79, 132, 0.1);
+  }
+
+  /* --- Icono de Corazón --- */
+  .heart-pulse-wrapper {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22px;
+  }
+
+  .custom-heart {
+    background-color: #ff4d7d;
+    display: inline-block;
+    height: 10px;
+    position: relative;
+    transform: rotate(-45deg);
+    width: 100%;
+    width: 10px;
+    animation: heartBeatGlow 1.4s infinite ease-in-out;
+  }
+
+  .custom-heart:before,
+  .custom-heart:after {
+    content: "";
+    background-color: #ff4d7d;
+    border-radius: 50%;
+    height: 10px;
+    position: absolute;
+    width: 10px;
+  }
+
+  .custom-heart:before {
+    top: -5px;
+    left: 0;
+  }
+  .custom-heart:after {
+    left: 5px;
+    top: 0;
+  }
+
+  /* --- Visualización del Contador --- */
+  .main-counter-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 45px;
+  }
+
+  /* Números un poco más grandes y definidos */
+  .time-num {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #222222;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+
+  /* Etiquetas claras */
+  .time-lbl {
+    font-size: 0.65rem;
+    color: #8c8c8c;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+
+  /* Separadores de tiempo `:` */
+  .time-sep {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ff4d7d;
+    line-height: 1;
+    position: relative;
+    top: -5px;
+    animation: smoothBlink 1.2s infinite steps(1);
+  }
+
+  /* --- Texto Inferior --- */
+  .love-date-footer {
+    font-size: 0.7rem;
+    color: #aaaaaa;
+    margin: 4px 0 0 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* --- Animaciones --- */
+  @keyframes heartBeatGlow {
+    0%,
+    100% {
+      transform: scale(1) rotate(-45deg);
+    }
+    50% {
+      transform: scale(1.2) rotate(-45deg);
+    }
+  }
+
+  @keyframes smoothBlink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+</style>
+<section class="love-mini-section">
+  <!-- El cuadro blanco ahora envuelve el contenido de forma compacta -->
+  <div class="love-mini-box">
+    <div class="heart-pulse-wrapper">
+      <span class="custom-heart"></span>
+    </div>
+
+    <div class="main-counter-display">
+      <div class="time-block">
+        <span class="time-num" id="days-count">00</span>
+        <span class="time-lbl">días</span>
+      </div>
+      <span class="time-sep">:</span>
+      <div class="time-block">
+        <span class="time-num" id="hours-count">00</span>
+        <span class="time-lbl">horas</span>
+      </div>
+      <span class="time-sep">:</span>
+      <div class="time-block">
+        <span class="time-num" id="mins-count">00</span>
+        <span class="time-lbl">min</span>
+      </div>
+      <span class="time-sep">:</span>
+      <div class="time-block">
+        <span class="time-num" id="secs-count">00</span>
+        <span class="time-lbl">seg</span>
+      </div>
+    </div>
+
+    <p class="love-date-footer">J & A — 15.06.23</p>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Configuración de la fecha origen
+    const targetDate = new Date(2023, 5, 15, 0, 0, 0);
+
+    const dDisplay = document.getElementById("days-count");
+    const hDisplay = document.getElementById("hours-count");
+    const mDisplay = document.getElementById("mins-count");
+    const sDisplay = document.getElementById("secs-count");
+
+    function runCounter() {
+      const timeDifference = new Date() - targetDate;
+
+      if (timeDifference < 0) return;
+
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      );
+      const minutes = Math.floor(
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60),
+      );
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      dDisplay.textContent = String(days).padStart(2, "0");
+      hDisplay.textContent = String(hours).padStart(2, "0");
+      mDisplay.textContent = String(minutes).padStart(2, "0");
+      sDisplay.textContent = String(seconds).padStart(2, "0");
+    }
+
+    runCounter();
+    setInterval(runCounter, 1000);
+  });
+</script>

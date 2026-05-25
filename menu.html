@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>todo nuestro amor</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+   <link rel="stylesheet" href="style.css">
+  </head>
+
+  <!--estilo contador-->
+  <style>
+  /* --- Contenedor General Exterior (Transparente) --- */
+  .love-mini-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: transparent;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* --- El Cuadro Blanco Estilizado --- */
+  .love-mini-box {
+    background: #ffffff; /* Solo el cuadro es blanco */
+    border-radius: 20px;
+    padding: 22px 28px;
+    width: 100%;
+    max-width: 320px; /* Un poco más grande y legible */
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(253, 79, 132, 0.08); /* Sombra muy suave */
+    border: 1px solid rgba(253, 79, 132, 0.1);
+  }
+
+  /* --- Icono de Corazón --- */
+  .heart-pulse-wrapper {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22px;
+  }
+
+  .custom-heart {
+    background-color: #ff4d7d;
+    display: inline-block;
+    height: 10px;
+    position: relative;
+    transform: rotate(-45deg);
+    width: 100%;
+    width: 10px;
+    animation: heartBeatGlow 1.4s infinite ease-in-out;
+  }
+
+  .custom-heart:before,
+  .custom-heart:after {
+    content: "";
+    background-color: #ff4d7d;
+    border-radius: 50%;
+    height: 10px;
+    position: absolute;
+    width: 10px;
+  }
+
+  .custom-heart:before {
+    top: -5px;
+    left: 0;
+  }
+  .custom-heart:after {
+    left: 5px;
+    top: 0;
+  }
+
+  /* --- Visualización del Contador --- */
+  .main-counter-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 45px;
+  }
+
+  /* Números un poco más grandes y definidos */
+  .time-num {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #c85656;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+
+  /* Etiquetas claras */
+  .time-lbl {
+    font-size: 0.65rem;
+    color: #0d0c0c;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+
+  /* Separadores de tiempo `:` */
+  .time-sep {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #880729;
+    line-height: 1;
+    position: relative;
+    top: -5px;
+    animation: smoothBlink 1.2s infinite steps(1);
+  }
+
+  /* --- Texto Inferior --- */
+  .love-date-footer {
+    font-size: 0.7rem;
+    color: #cd4444;
+    margin: 4px 0 0 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* --- Animaciones --- */
+  @keyframes heartBeatGlow {
+    0%,
+    100% {
+      transform: scale(1) rotate(-45deg);
+    }
+    50% {
+      transform: scale(1.2) rotate(-45deg);
+    }
+  }
+
+  @keyframes smoothBlink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+</style>
+
+<!-- seccion del video con el mensaje final y el efecto de pantalla negra al cerrar -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap');
+
+        #seccion_video {
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+.tarjeta-video {
+    /* Combinamos el degradado con la ruta de tu imagen */
+    background-image: linear-gradient(
+        rgba(15, 13, 13, 0.695), 
+        rgba(84, 30, 30, 0.627)
+    ), url('./media/imagen5.jpeg'); 
+    
+    /* Propiedades clave para que la imagen se adapte perfectamente */
+    background-size: cover;       /* Hace que la imagen cubra toda la tarjeta sin deformarse */
+    background-position: center;  /* Centra la imagen de fondo */
+    background-repeat: no-repeat; /* Evita que la foto se duplique */
+
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+    max-width: 950px;
+    width: 100%;
+    padding: 40px;
+    gap: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    align-items: center;
+    z-index: 2;
+}
+
+        .columna-video { flex: 1.2; }
+        .columna-video video {
+            width: 100%;
+            border-radius: 20px;
+            display: block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            background-color: #000;
+        }
+
+        .columna-texto { flex: 1; text-align: left; }
+        .titulo-video {
+           font-family: "Pacifico", cursive;
+            color: #e91e63;
+            font-size: 2.3rem;
+            margin: 0 0 5px 0;
+        }
+
+        .emoji-latido {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: latido 1.2s infinite;
+        }
+
+        .parrafo-amor {
+            color: #ffffff;
+            line-height: 1.6;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .btn-amor {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-amor:hover {
+            background-color: #c2185b;
+            transform: scale(1.05);
+        }
+
+        /* Pantalla Negra de Cierre */
+        #pantalla-negra {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 2s ease-in-out;
+            z-index: 9998;
+        }
+        #pantalla-negra.activo { visibility: visible; opacity: 1; }
+
+        /* MODAL FINAL PERSONALIZADO */
+        #modal-final {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            z-index: 9999;
+            width: 90%;
+            max-width: 400px;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #modal-final.mostrar {
+            visibility: visible;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #modal-final h3 {
+            font-family: 'Dancing Script', cursive;
+            color: #e91e63;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        #modal-final p {
+            color: #555;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @media (max-width: 768px) {
+            .tarjeta-video { flex-direction: column; padding: 25px; text-align: center; }
+            .columna-texto { text-align: center; }
+        }
+
+
+
+        /* =========================
+BOTON WHATSAPP AMOR 💖
+========================= */
+
+.btn-si{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    padding:18px 50px;
+    border:none;
+    border-radius:80px;
+    text-decoration:none;
+    font-size:1.2rem;
+    font-weight:700;
+    letter-spacing:1px;
+    color:#fff;
+    background:linear-gradient(135deg,#ff0055,#ff4d88,#ff85b3);
+    background-size:300% 300%;
+    cursor:pointer;
+    overflow:hidden;
+    transition:.5s ease;
+    animation:gradientMove 6s ease infinite;
+    box-shadow:
+    0 0 15px rgba(255,0,85,.6),
+    0 0 40px rgba(255,77,136,.5),
+    0 0 80px rgba(255,133,179,.4);
+}
+
+/* BRILLO */
+
+.btn-si::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:80%;
+    height:100%;
+    background:rgba(255,255,255,.35);
+    transform:skewX(-25deg);
+    transition:.8s;
+}
+
+.btn-si:hover::before{
+    left:140%;
+}
+
+/* HOVER */
+
+.btn-si:hover{
+    transform:translateY(-8px) scale(1.06);
+    box-shadow:
+    0 0 25px rgba(255,255,255,.9),
+    0 0 60px rgba(255,0,85,.9),
+    0 0 120px rgba(255,77,136,.8);
+}
+
+/* CLICK */
+
+.btn-si:active{
+    transform:scale(.96);
+}
+
+/* EFECTO LATIDO */
+
+.btn-si::after{
+    content:'💖';
+    position:absolute;
+    right:25px;
+    animation:latidoBtn 1.5s infinite;
+}
+
+/* ANIMACIONES */
+
+@keyframes gradientMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+@keyframes latidoBtn{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.3);
+    }
+
+}
+    </style>
+  <body>
+
+    <!--inico menu principal-->
+    <section class="seccion-detalle">
+  <div class="contenedor-detalle">
+    <h1 class="titulo-hola">
+      El mejor capítulo de mi vida <br />
+      💞<br>
+      <h2>Mateo y Andrea</h2>
+    </h1>
+   
+    <!--contador de tiempo de fecha de aniveersario-->
+<section class="love-mini-section">
+  <!-- El cuadro blanco ahora envuelve el contenido de forma compacta -->
+  <div class="love-mini-box">
+    <div class="heart-pulse-wrapper">
+      <span class="custom-heart"></span>
+    </div>
+
+    <div class="main-counter-display">
+      <div class="time-block">
+        <span class="time-num" id="days-count">00</span>
+        <span class="time-lbl">días</span>
+      </div>
+      <span class="time-sep">:</span>
+      <div class="time-block">
+        <span class="time-num" id="hours-count">00</span>
+        <span class="time-lbl">horas</span>
+      </div>
+      <span class="time-sep">:</span>
+      <div class="time-block">
+        <span class="time-num" id="mins-count">00</span>
+        <span class="time-lbl">min</span>
+      </div>
+      <span class="time-sep">:</span>
+      <div class="time-block">
+        <span class="time-num" id="secs-count">00</span>
+        <span class="time-lbl">seg</span>
+      </div>
+    </div>
+
+    <p class="love-date-footer">M & A — 15.06.23</p>
+  </div>
+</section>
+
+ <p class="subtitulo-detalle">Coleccionando momentos a tu lado </p>
+
+
+<!--parte de las tres fotos que se juntan -->
+
+       <div class="escenario-fotos" id="zona-chispas">
+      <div class="marco-foto foto-izq">
+        <img src="https://i.pinimg.com/736x/a6/aa/9d/a6aa9d8e4dd541a597cf3df8a8029443.jpg" alt="Parte 1" />
+      </div>
+
+      <div class="marco-foto foto-centro">
+        <img src="https://previews.123rf.com/images/tanysha561/tanysha5612401/tanysha561240100156/223357502-valentines-day-flork-meme-couple-in-love.jpg" alt="Unión" />
+      </div>
+
+      <div class="marco-foto foto-der">
+        <img src="https://img-11.stickers.cloud/packs/a6a02f94-6110-4d20-a6fc-05303bdc1d68/webp/931293af-fb5b-47c0-a32d-8ec8617032a9.webp" alt="Parte 2" />
+      </div>
+      </div>
+
+      <button class="btn-unir" id="btn-accion" onclick="unirFotos()">Unir</button>
+
+      <div class="contenedor-mensaje-oculto">
+      <h2 class="mensaje-bonito" id="txt-final">
+        Mi rincón favorito en el mundo es donde estés tú.✨
+      </h2>
+      </div>
+     </div>
+    </section>
+
+    <!-- seccion de la foto y el corazon de explocion de pica pica -->
+    <section class="seccion-foto">
+      <h2 class="titulo-foto animate__animated animate__fadeIn">
+        El mejor momento junto a tí<br />
+      </h2>
+
+      <div class="contenedor-imagen animate__animated animate__zoomIn">
+        <img
+          src="https://i.pinimg.com/originals/9a/4a/62/9a4a625e7f8642fd62e7f63d68b47f94.jpg"
+          alt="Nosotros"
+        />
+      </div>
+
+      <div class="corazon-click" onclick="celebrar()">❤</div>
+      <p class="mt-2 text-white-70">¡Toca el corazón!</p>
+    </section>
+
+    <!-- seccion  MUSICA con el disco girando y los corazones flotando -->
+    <section class="seccion-musica">
+      <h2 class="titulo-musica animate__animated animate__fadeInUp">
+        Te dedico esta canción 
+      </h2>
+      <div class="reproductor-container animate__animated animate__zoomIn">
+        <div class="disco-wrapper">
+          <div id="disco" class="disco">
+            <img
+              src="https://i.pinimg.com/736x/81/a5/11/81a5112ebe675d623a325431fbd9c4ce.jpg"
+              alt="Disco"
+            />
+            <div class="centro-disco"></div>
+          </div>
+        </div>
+
+        <div class="controles">
+          <button class="btn-control">
+            <i class="fas fa-step-backward"></i>
+          </button>
+          <button id="btn-play" class="btn-play" onclick="toggleMusica()">
+            <span id="icono-play">▶</span>
+          </button>
+          <button class="btn-control">
+            <i class="fas fa-step-forward"></i>
+          </button>
+        </div>
+        <h2>"La cancion de tus sueños - siWEBza"</h2>
+
+        <p class="frase-musica">
+          "Cada nota de esta canción me recuerda que mi lugar favorito en el
+          mundo es a tu lado."
+        </p>
+      </div>
+
+      <audio id="miMusica" loop>
+        <source
+          src="./media/Melendi ft. HaAsh - Destino o Casualidad (Letra).mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+    </section>
+
+    <!-- seccion de la galeria con el carrusel infinito y el zoom al hacer click en la foto -->
+    <section id="galeriamodal" class="seccion-galeria">
+      <h2 class="titulo-galeria">Nuestros Recuerdos</h2>
+      <p class="subtitulo-galeria">
+        Momentos que se quedan grabados en el alma
+      </p>
+
+      <div class="slider-container">
+        <div class="slider-track" id="sliderTrack">
+         <div class="card-foto">
+            <img
+              src="https://www.shutterstock.com/image-vector/memes-flork-embrace-260nw-2323195835.jpg"
+              alt="Recuerdo 1"
+            /><span>Bajo el sol</span>
+          </div>
+          <div class="card-foto">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR76IiMTDW3oSteyxMIIknNknqlfEsyaWR23Q&s"
+              alt="Recuerdo 2"
+            /><span>Nuestras risas</span>
+          </div>
+          <div class="card-foto">
+            <img
+              src="https://ih1.redbubble.net/image.5285969665.0741/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg"
+              alt="Recuerdo 3"
+            /><span>Aventura juntos</span>
+          </div>
+          <div class="card-foto">
+            <img
+              src="https://i.pinimg.com/736x/20/f6/6b/20f66b6c448f262ecd9291bbec449ac8.jpg"
+              alt="Recuerdo 4"
+            /><span>Días mágicos</span>
+          </div>
+          <div class="card-foto">
+            <img
+              src="https://i.pinimg.com/236x/92/13/b5/9213b5cb9888fd8f8ed07122e259a8b2.jpg"
+              alt="Recuerdo 5"
+            /><span>Mi lugar favorito</span>
+          </div>
+          <div class="card-foto">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0-59YDgTQcdUxnjVWL_KERNnun4hwtCqPwQ&s"
+              alt="Recuerdo 6"
+            /><span>Siempre contigo</span>
+          </div>
+          
+
+        </div>
+        <br><br>
+           <!-- <a
+          href="carta.html"
+          target="_blank"
+          class="btn-si"
+        > Nuestros Momentos 💖
+        </a>-->
+      </div>
+
+      <div id="overlayGaleria" class="overlay-galeria" onclick="cerrarZoom()">
+        <img id="imgZoom" src="" alt="Zoom" />
+      </div>
+    </section>
+ 
+<!-- carta 🙂❤️-->
+<section class="seccion-sobre-final">
+  <div class="card-blanca animate__animated animate__zoomIn">
+    <h1 class="titulo-principal" style="color: #bd2662;">Mensaje de amor</h1><br>
+    <div class="sobre-contenedor" id="sobreContenedor" onclick="abrirMensaje()">
+      <div class="sobre-solapa"></div>
+      <div class="sobre-cuerpo"></div>
+      <div class="sobre-corazon">❤</div>
+    </div>
+    <p class="texto-abrir">Toca el corazón para abrir.💫</p>
+  </div>
+
+  <div
+    id="pantallaMensaje"
+    class="pantalla-mensaje"
+    onclick="cerrarSiTocaFuera(event)"
+  >
+    <div class="carta-texto" id="cartaTexto">
+      <h2 id="tituloAnimado"></h2>
+      <p id="mensajeEscrito"></p>
+      <button class="btn-continuar" id="btnContinuar" onclick="cerrarMensaje()">
+        Continuar
+      </button>
+    </div>
+  </div>
+</section>
+
+
+  <!-- seccion de fotos y frase  OCULTA-->
+    <section id="fotos_frase">
+
+    <h1 class="titulo-principal">Los mejores momentos 😍</h1>
+    <p class="subtitulo">Toca foto ✨</p>
+
+    <div class="contenedor-cards">
+        <div class="card-flip" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="cinta"></div>
+                    <img src="https://i.pinimg.com/474x/0e/ff/b8/0effb84c4322d4248c22b48aea0755bd.jpg">
+                    <p class="texto-foto">Enamorado de tu sonrrisa</p>
+                </div>
+                <div class="card-back">
+                    <p class="frase-oculta">"En las buenas y malas con tigo"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-flip" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="cinta"></div>
+                    <img src="https://i.pinimg.com/736x/c3/5e/5f/c35e5fdbcab8866833b84b59112ac9fa.jpg"Feliz">
+                    <p class="texto-foto">Enamorado de tus ojos</p>
+                </div>
+                <div class="card-back">
+                    <p class="frase-oculta">"Momentos magicos a tu lado"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-flip" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="cinta"></div>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQftSnNyE3uRMKeMpW95fFX9bHJ96XvSnkO4Q&s" alt="abazos">
+                    <p class="texto-foto">Amarte es mi destino</p>
+                </div>
+                <div class="card-back">
+                    <p class="frase-oculta">Me enamore de la mujer mas hermosa del mundo❤️</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--seccion  de fotos con frase ocual que se da vuelta-->
+
+</section>
+
+
+  <!-- seccion del video con el mensaje final y el efecto de pantalla negra al cerrar -->
+    <section id="seccion_video">
+  
+    <div class="tarjeta-video">
+        <div class="columna-video">
+            <video id="miVideo" controls>
+                <source src="media/videoedit.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="columna-texto">
+            <h2 class="titulo-video">Mi Promesa de Amor </h2>
+            <div class="emoji-latido">💌</div>
+            <p class="parrafo-amor">
+            Este rincón digital fue creado con todo mi corazón, especialmente para ti.
+              "No imagino mi vida con nadie más. Quédate conmigo hoy, mañana y siempre."<br> ❤️
+           </p>
+           
+              <a 
+            href="https://wa.me/51987654321?text=Gracias%20mi%20amor%20%E2%9D%A4%EF%B8%8F" 
+            target="_blank" 
+             class="btn-si">
+                💖 Gracias mi amor 💖
+              </a>
+
+        </div>
+    </div>
+
+    <div id="pantalla-negra"></div>
+    
+   </section>
+
+<!--corazones flotantes-->
+ <script>       
+/* =========================
+CORAZONES FLOTANTES */
+const corazones = document.querySelector('.corazones');
+
+for(let i=0; i<45; i++){
+
+  const heart = document.createElement('span');
+
+  heart.innerHTML = '💖';
+
+  heart.style.left = Math.random()*100 + 'vw';
+
+  heart.style.fontSize = (Math.random()*25+15)+'px';
+
+  heart.style.animationDuration = (Math.random()*5+5)+'s';
+
+  heart.style.animationDelay = Math.random()*5+'s';
+
+  corazones.appendChild(heart);
+}
+
+/* =========================
+EFECTO TITULO
+========================= */
+
+const titulo = document.querySelector('.texto-amor h2');
+
+setInterval(()=>{
+
+  titulo.style.textShadow=`
+  0 0 20px #fff,
+  0 0 40px #ff4d88,
+  0 0 80px #ff0055
+  `;
+
+  setTimeout(()=>{
+    titulo.style.textShadow='0 0 20px rgba(255,255,255,.8)';
+  },1000);
+
+},2000);
+
+</script>
+
+    <script>
+        const video = document.getElementById('miVideo');
+        const btnCerrar = document.getElementById('btn-cerrar');
+        const pantallaNegra = document.getElementById('pantalla-negra');
+        const modalFinal = document.getElementById('modal-final');
+
+        // Observer para el video
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) video.play().catch(() => {});
+                else video.pause();
+            });
+        }, { threshold: 0.5 });
+        observer.observe(video);
+
+        // Lógica de cierre con Modal
+        btnCerrar.addEventListener('click', () => {
+            // 1. Oscurecer pantalla
+            pantallaNegra.classList.add('activo');
+            
+            // 2. Mostrar el modal elegante después de que se oscurezca
+            setTimeout(() => {
+                modalFinal.classList.add('mostrar');
+                
+                // Intentar cerrar automáticamente después de mostrar el modal
+                setTimeout(() => {
+                    window.close();
+                }, 4000);
+            }, 2000);
+        });
+    </script>
+</section>
+
+
+      <!-- LÓGICA DE PICA PICA (CONFETTI) -->
+    <script>
+      function celebrar() {
+        // Explosión de pica pica masiva
+        var count = 200;
+        var defaults = {
+          origin: { y: 0.7 },
+        };
+
+        function fire(particleRatio, opts) {
+          confetti({
+            ...defaults,
+            ...opts,
+            particleCount: Math.floor(count * particleRatio),
+          });
+        }
+
+        fire(0.25, { spread: 26, startVelocity: 55 });
+        fire(0.2, { spread: 60 });
+        fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+        fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+        fire(0.1, { spread: 120, startVelocity: 45 });
+      }
+    </script>
+
+
+<!--LÓGICA DE MÚSICA -->
+    <script>
+     
+      const musica = document.getElementById("miMusica");
+      const disco = document.getElementById("disco");
+      const iconoPlay = document.getElementById("icono-play");
+      let estaTocando = false;
+      let intervaloCorazones;
+
+      function toggleMusica() {
+        if (estaTocando) {
+          musica.pause();
+          disco.classList.remove("girando");
+          iconoPlay.innerText = "▶";
+          clearInterval(intervaloCorazones);
+        } else {
+          musica
+            .play()
+            .catch((e) =>
+              console.log("Esperando interacción del usuario para audio"),
+            );
+          disco.classList.add("girando");
+          iconoPlay.innerText = "||";
+          // Iniciar lluvia de corazones
+          intervaloCorazones = setInterval(crearCorazonFlotante, 400);
+        }
+        estaTocando = !estaTocando;
+      }
+
+      function crearCorazonFlotante() {
+        const container = document.querySelector(".disco-wrapper");
+        const corazon = document.createElement("div");
+        corazon.innerHTML = "🌟";
+        corazon.classList.add("corazon-flotante");
+
+        // Posición aleatoria de dispersión
+        const x = (Math.random() - 0.5) * 300;
+        const y = (Math.random() - 0.5) * 300;
+
+        corazon.style.setProperty("--x", `${x}px`);
+        corazon.style.setProperty("--y", `${y}px`);
+        corazon.style.left = "45%";
+        corazon.style.top = "45%";
+
+        container.appendChild(corazon);
+
+        setTimeout(() => {
+          corazon.remove();
+        }, 2000);
+      }
+    </script>
+
+
+ <!-- LÓGICA DE LA GALERÍA -->
+    <script>
+      const track = document.getElementById("sliderTrack");
+      const overlay = document.getElementById("overlayGaleria");
+      const imgZoom = document.getElementById("imgZoom");
+
+      // Evento para todas las fotos
+      document.querySelectorAll(".card-foto img").forEach((imagen) => {
+        imagen.addEventListener("click", function (e) {
+          e.stopPropagation();
+          imgZoom.src = this.src;
+          overlay.style.display = "flex";
+          track.style.animationPlayState = "paused"; // Detiene el carrusel
+        });
+      });
+
+      function cerrarZoom() {
+        overlay.style.display = "none";
+        track.style.animationPlayState = "running"; // Reinicia el carrusel
+      }
+    </script>
+
+
+<!-- LÓGICA SOBRE CON EFECTO MÁQUINA DE ESCRIBIR (INTACTA) -->
+<script>
+  const tituloTexto = "Amor Mio...Te escribi esto";
+  const mensajeTexto = `No importa cómo corra el tiempo en el reloj, cada día a tu lado me demuestra que tomar tu mano fue la mejor decisión de mi vida. Eres mi lugar seguro, mi motivación constante y el amor más bonito que tengo.
+   Gracias por construir esta historia conmigo, paso a paso y segundo a segundo.❤️`;
+
+  let i = 0;
+  let t = 0;
+
+  function abrirMensaje() {
+    document.getElementById("pantallaMensaje").style.display = "flex";
+    escribirTitulo();
+  }
+
+  function escribirTitulo() {
+    if (t < tituloTexto.length) {
+      document.getElementById("tituloAnimado").innerHTML +=
+        tituloTexto.charAt(t);
+      t++;
+      setTimeout(escribirTitulo, 50);
+    } else {
+      escribirMensaje();
+    }
+  }
+
+  function escribirMensaje() {
+    if (i < mensajeTexto.length) {
+      document.getElementById("mensajeEscrito").innerHTML +=
+        mensajeTexto.charAt(i);
+      i++;
+      setTimeout(escribirMensaje, 0);
+    } else {
+      document.getElementById("btnContinuar").style.display = "inline-block";
+    }
+  }
+
+  function cerrarMensaje() {
+    document.getElementById("pantallaMensaje").style.display = "none";
+    // Reiniciamos para la próxima vez
+    document.getElementById("tituloAnimado").innerHTML = "";
+    document.getElementById("mensajeEscrito").innerHTML = "";
+    document.getElementById("btnContinuar").style.display = "none";
+    i = 0;
+    t = 0;
+  }
+
+  function cerrarSiTocaFuera(event) {
+    if (event.target.id === "pantallaMensaje") {
+      cerrarMensaje();
+    }
+  }
+</script>
+
+<script>
+  function unirFotos() {
+    const escenario = document.querySelector(".escenario-fotos");
+    const boton = document.getElementById("btn-accion");
+    const mensaje = document.getElementById("txt-final");
+
+    boton.classList.add("ocultar");
+    escenario.classList.add("unido");
+
+    setTimeout(() => {
+      crearChispas(35);
+      mensaje.classList.add("mostrar");
+    }, 500);
+  }
+
+  function crearChispas(cantidad) {
+    const contenedor = document.getElementById("zona-chispas");
+    const colores = ["#ffead0", "#ff2a4b", "#ffb3c1", "#ffd700", "#ffffff"];
+
+    for (let i = 0; i < cantidad; i++) {
+      const chispa = document.createElement("div");
+      chispa.classList.add("chispa");
+
+      const angulo = Math.random() * Math.PI * 2;
+      const distancia = 60 + Math.random() * 140;
+      const mx = Math.cos(angulo) * distancia + "px";
+      const my = Math.sin(angulo) * distancia + "px";
+
+      chispa.style.setProperty("--mx", mx);
+      chispa.style.setProperty("--my", my);
+
+      chispa.style.backgroundColor =
+        colores[Math.floor(Math.random() * colores.length)];
+      chispa.style.left = "50%";
+      chispa.style.top = "50%";
+
+      contenedor.appendChild(chispa);
+
+      setTimeout(() => chispa.remove(), 900);
+    }
+  }
+</script>
+
+<!--contador de tiempo-->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Configuración de la fecha origen
+    const targetDate = new Date(2023, 5, 15, 0, 0, 0);
+
+    const dDisplay = document.getElementById("days-count");
+    const hDisplay = document.getElementById("hours-count");
+    const mDisplay = document.getElementById("mins-count");
+    const sDisplay = document.getElementById("secs-count");
+
+    function runCounter() {
+      const timeDifference = new Date() - targetDate;
+
+      if (timeDifference < 0) return;
+
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      );
+      const minutes = Math.floor(
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60),
+      );
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      dDisplay.textContent = String(days).padStart(2, "0");
+      hDisplay.textContent = String(hours).padStart(2, "0");
+      mDisplay.textContent = String(minutes).padStart(2, "0");
+      sDisplay.textContent = String(seconds).padStart(2, "0");
+    }
+
+    runCounter();
+    setInterval(runCounter, 1000);
+  });
+</script>
+
+    <script>
+      function createHearts() {
+    const section = document.getElementById('fotos_frase');
+    const heart = document.createElement('div');
+    
+    heart.classList.add('heart');
+    heart.innerHTML = '❤️'; // Puedes alternar con 💖 o 💕
+    
+    // Posición horizontal aleatoria
+    heart.style.left = Math.random() * 100 + 'vw';
+    
+    // Tamaño y duración aleatoria
+    const size = Math.random() * 15 + 15 + 'px';
+    heart.style.fontSize = size;
+    
+    const duration = Math.random() * 2 + 3 + 's';
+    heart.style.animationDuration = duration;
+
+    section.appendChild(heart);
+
+    // Borrar corazón después de que termine la animación
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+
+// Crear un corazón cada 300ms
+setInterval(createHearts, 350);
+    </script>
+
+  </body>
+</html>
